@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Snap Comic Database</title>
+</head>
+<body>
+    <h1>Marvel Snap Cards</h1>
+    <div id="cards">
+        {% for card in cards %}
+            <div class="card">
+                <h2>{{ card.name }}</h2>
+                <p>Energy: {{ card.energy }}</p>
+                <p>Power: {{ card.power }}</p>
+                <img src="{{ card.image }}" alt="{{ card.name }}" width="200">
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
