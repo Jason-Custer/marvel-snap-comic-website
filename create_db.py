@@ -1,9 +1,15 @@
-import sqlite3  # Imports the library to work with SQLite.
+import sqlite3
+import os
+from api_integration import get_cards, download_card_images
 
 def create_database():
-    conn = sqlite3.connect("database/cards.db")  # Connects to (or creates) the database file.
-    cursor = conn.cursor()  # Creates a tool to send commands to the database.
+    """
+    Creates the SQLite database and inserts card data from the API.
+    """
+    conn = sqlite3.connect("database/cards.db")
+    cursor = conn.cursor()
 
+    # Create the cards table if it doesn't exist.
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS cards (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -12,11 +18,32 @@ def create_database():
             power INTEGER,
             image TEXT
         )
-    """)  # This SQL command creates a table named 'cards' with specified columns.
+    """)
 
-    conn.commit()  # Saves the changes to the database.
-    conn.close()  # Closes the connection to the database.
+    # Get card data from the API.
+    card_data = get_cards()
+
+    if not card_data:
+        print("Error: Could not retrieve card data from API.")
+        conn.close()
+        return
+
+    # Download card images.
+    download_card_images(card_data)
+
+    # Insert card data into the database.
+    for card in card_data:
+        image_filename = card['image'].rsplit('/', 1)[-1].rsplit('?', 1)[0]
+        image_path = os.path.join("marvel-snap", "cards", image_filename).replace("\\", "/") # Ensure correct path separator
+
+        cursor.execute("""
+            INSERT INTO cards (name, energy, power, image)
+            VALUES (?, ?, ?, ?)
+        """, (card['name'], card['energy'], card['power'], image_path + ".png"))
+
+    conn.commit()
+    conn.close()
+    print("Database and card data updated successfully.")
 
 if __name__ == "__main__":
     create_database()
-    print("Database and table created successfully!")  # Prints a confirmation message.
