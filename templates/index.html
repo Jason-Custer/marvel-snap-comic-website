@@ -1,21 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvel Snap Comic Database</title>
+    <title>Marvel Snap Cards</title>
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            display: inline-block;
+            vertical-align: top;
+            box-shadow: 2px 2px 5px #eee;
+            text-align: center; /* Add this line */
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .card h2 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Marvel Snap Cards</h1>
-    <div id="cards">
-        {% for card in cards %}
-            <div class="card">
-                <h2>{{ card.name }}</h2>
-                <p>Energy: {{ card.energy }}</p>
-                <p>Power: {{ card.power }}</p>
-                <img src="{{ card.image }}" alt="{{ card.name }}" width="200">
-            </div>
-        {% endfor %}
+    {% for card in cards %}
+    <div class="card">
+        <h2>{{ card.name }}</h2>
+        <img src="{{ url_for('static', filename=card.image) }}" alt="{{ card.name }}">
+        <p>Energy: {{ card.energy }}</p>
+        <p>Power: {{ card.power }}</p>
     </div>
+    {% endfor %}
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
 </body>
 </html>

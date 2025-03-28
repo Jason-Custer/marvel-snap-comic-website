@@ -34,7 +34,7 @@ def create_database():
     # Insert card data into the database.
     for card in card_data:
         image_filename = card['image'].rsplit('/', 1)[-1].rsplit('?', 1)[0].replace(".webp", "")
-        image_path = os.path.join("marvel-snap", "cards", image_filename).replace("\\", "/") # Ensure correct path separator
+        image_path = os.path.join("cards", image_filename).replace("\\", "/")
 
         cursor.execute("""
             INSERT INTO cards (name, energy, power, image)
