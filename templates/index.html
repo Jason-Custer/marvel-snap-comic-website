@@ -2,43 +2,173 @@
 <html>
 <head>
     <title>Marvel Snap Cards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         .card {
             border: 1px solid #ddd;
             padding: 10px;
             margin: 10px;
-            width: 250px;
+            width: 200px;
             display: inline-block;
-            vertical-align: top;
-            box-shadow: 2px 2px 5px #eee;
-            text-align: center; /* Add this line */
+            text-align: center;
         }
+
         .card img {
             max-width: 100%;
             height: auto;
-            display: block;
         }
-        .card h2 {
-            margin-top: 5px;
-            margin-bottom: 5px;
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
         }
-        .card p {
-            margin: 5px 0;
+
+        .pagination a {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            text-decoration: none;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50px;
+            left: 50px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        input[type="text"] {
+            margin-bottom: 10px;
+        }
+
+        #filterButton {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Marvel Snap Cards</h1>
-    {% for card in cards %}
-    <div class="card">
-        <h2>{{ card.name }}</h2>
-        <img src="{{ url_for('static', filename=card.image) }}" alt="{{ card.name }}">
-        <p>Energy: {{ card.energy }}</p>
-        <p>Power: {{ card.power }}</p>
+
+    <input type="text" id="searchInput" placeholder="Search cards...">
+    <button id="searchButton">Search</button>
+
+    <button id="filterButton">Filter</button>
+    <div id="filterPopup" class="popup">
+        <div>
+            Energy:
+            <label><input type="checkbox" name="energy" value="1"> 1-</label>
+            <label><input type="checkbox" name="energy" value="2"> 2</label>
+            <label><input type="checkbox" name="energy" value="3"> 3</label>
+            <label><input type="checkbox" name="energy" value="4"> 4</label>
+            <label><input type="checkbox" name="energy" value="5"> 5</label>
+            <label><input type="checkbox" name="energy" value="6"> 6+</label>
+        </div>
+
+        <div>
+            Power:
+            <label><input type="checkbox" name="power" value="1"> 1-</label>
+            <label><input type="checkbox" name="power" value="2"> 2</label>
+            <label><input type="checkbox" name="power" value="3"> 3</label>
+            <label><input type="checkbox" name="power" value="4"> 4</label>
+            <label><input type="checkbox" name="power" value="5"> 5</label>
+            <label><input type="checkbox" name="power" value="6"> 6+</label>
+        </div>
+
+        <button id="applyFilters">Submit</button>
     </div>
-    {% endfor %}
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
+
+    <div id="cardDisplay">
+        {% for card in cards %}
+            <div class="card">
+                <h2>{{ card.name }}</h2>
+                <img src="{{ card.image }}" alt="{{ card.name }}">
+                <p>Energy: {{ card.energy }}</p>
+                <p>Power: {{ card.power }}</p>
+            </div>
+        {% endfor %}
+        <div class="pagination">
+            {% for page_num in range(1, total_pages + 1) %}
+                <a href="/?page={{ page_num }}">{{ page_num }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="searchResults" style="display: none;"></div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const filterButton = document.getElementById('filterButton');
+        const filterPopup = document.getElementById('filterPopup');
+        const applyFilters = document.getElementById('applyFilters');
+        const searchResults = document.getElementById('searchResults');
+        const cardDisplay = document.getElementById('cardDisplay');
+
+        filterButton.addEventListener('click', () => {
+            filterPopup.style.display = 'block';
+        });
+
+        applyFilters.addEventListener('click', () => {
+            const query = searchInput.value;
+            const energyCheckboxes = document.querySelectorAll('input[name="energy"]');
+            const powerCheckboxes = document.querySelectorAll('input[name="power"]');
+
+            const energyValues = Array.from(energyCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+            const powerValues = Array.from(powerCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            function fetchPage(page) {
+                fetch(`/search_dynamic?query=${query}&energy=${energyValues.join(',')}&power=${powerValues.join(',')}&page=${page}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let resultsHtml = '';
+                        data.cards.forEach(card => {
+                            resultsHtml += `
+                                <div class="card">
+                                    <h2>${card.name}</h2>
+                                    <img src="${card.image}" alt="${card.name}">
+                                    <p>Energy: ${card.energy}</p>
+                                    <p>Power: ${card.power}</p>
+                                </div>
+                            `;
+                        });
+                        searchResults.innerHTML = resultsHtml;
+
+                        const pagination = document.querySelector('.pagination');
+                        pagination.innerHTML = '';
+                        if (data.cards.length > 0) {
+                            for (let i = 1; i <= data.total_pages; i++) {
+                                const pageLink = document.createElement('a');
+                                pageLink.href = '#';
+                                pageLink.textContent = i;
+                                pageLink.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    fetchPage(i);
+                                });
+                                pagination.appendChild(pageLink);
+                            }
+                        }
+                        cardDisplay.style.display = 'none';
+                        searchResults.style.display = 'block';
+                    });
+            }
+
+            fetchPage(1);
+
+            filterPopup.style.display = 'none';
+        });
+
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value;
+            fetchPage(1);
+        })
+    </script>
 </body>
 </html>
