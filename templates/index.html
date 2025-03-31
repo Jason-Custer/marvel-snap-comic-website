@@ -107,68 +107,74 @@
         const applyFilters = document.getElementById('applyFilters');
         const searchResults = document.getElementById('searchResults');
         const cardDisplay = document.getElementById('cardDisplay');
-
+    
+        let query = '';
+        let energyValues = [];
+        let powerValues = [];
+    
         filterButton.addEventListener('click', () => {
             filterPopup.style.display = 'block';
         });
-
+    
         applyFilters.addEventListener('click', () => {
-            const query = searchInput.value;
+            query = searchInput.value;
             const energyCheckboxes = document.querySelectorAll('input[name="energy"]');
             const powerCheckboxes = document.querySelectorAll('input[name="power"]');
-
-            const energyValues = Array.from(energyCheckboxes)
+    
+            energyValues = Array.from(energyCheckboxes)
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
-            const powerValues = Array.from(powerCheckboxes)
+            powerValues = Array.from(powerCheckboxes)
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
-
-            function fetchPage(page) {
-                fetch(`/search_dynamic?query=${query}&energy=${energyValues.join(',')}&power=${powerValues.join(',')}&page=${page}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        let resultsHtml = '';
-                        data.cards.forEach(card => {
-                            resultsHtml += `
-                                <div class="card">
-                                    <h2>${card.name}</h2>
-                                    <img src="${card.image}" alt="${card.name}">
-                                    <p>Energy: ${card.energy}</p>
-                                    <p>Power: ${card.power}</p>
-                                </div>
-                            `;
-                        });
-                        searchResults.innerHTML = resultsHtml;
-
-                        const pagination = document.querySelector('.pagination');
-                        pagination.innerHTML = '';
-                        if (data.cards.length > 0) {
-                            for (let i = 1; i <= data.total_pages; i++) {
-                                const pageLink = document.createElement('a');
-                                pageLink.href = '#';
-                                pageLink.textContent = i;
-                                pageLink.addEventListener('click', (event) => {
-                                    event.preventDefault();
-                                    fetchPage(i);
-                                });
-                                pagination.appendChild(pageLink);
-                            }
-                        }
-                        cardDisplay.style.display = 'none';
-                        searchResults.style.display = 'block';
-                    });
-            }
-
+    
             fetchPage(1);
-
+    
             filterPopup.style.display = 'none';
         });
-
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value;
+    
+        searchInput.addEventListener('input', () => {
+            query = searchInput.value;
             fetchPage(1);
-        })
+        });
+    
+        function fetchPage(page) {
+            fetch(`/search_dynamic?query=${query}&energy=${energyValues.join(',')}&power=${powerValues.join(',')}&page=${page}`)
+                .then(response => response.json())
+                .then(data => {
+                    let resultsHtml = '';
+                    data.cards.forEach(card => {
+                        resultsHtml += `
+                            <div class="card">
+                                <h2>${card.name}</h2>
+                                <img src="${card.image}" alt="${card.name}">
+                                <p>Energy: ${card.energy}</p>
+                                <p>Power: ${card.power}</p>
+                            </div>
+                        `;
+                    });
+                    searchResults.innerHTML = resultsHtml;
+    
+                    const pagination = document.querySelector('.pagination');
+                    pagination.innerHTML = '';
+    
+                    if (data.total_pages > 1) { // Only show pagination if more than one page
+                        for (let i = 1; i <= data.total_pages; i++) {
+                            const pageLink = document.createElement('a');
+                            pageLink.href = '#';
+                            pageLink.textContent = i;
+                            pageLink.addEventListener('click', (event) => {
+                                event.preventDefault();
+                                fetchPage(i);
+                            });
+                            pagination.appendChild(pageLink);
+                        }
+                    }
+    
+                    cardDisplay.style.display = 'none';
+                    searchResults.style.display = 'block';
+                });
+        }
     </script>
 </body>
 </html>

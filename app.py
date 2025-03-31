@@ -7,7 +7,7 @@ app = Flask(__name__, static_folder='marvel-snap') # Removed static_url_path
 # Configure logging
 logging.basicConfig(filename='app.log', level=logging.ERROR)
 
-CARDS_PER_PAGE = 32
+CARDS_PER_PAGE = 30
 
 def get_card_data_from_db(page, query=None):
     conn = sqlite3.connect("database/cards.db")
