@@ -7,9 +7,9 @@
         .card {
             border: 1px solid #ddd;
             padding: 10px;
-            margin: 10px;
+            margin: 10px auto; /* Center cards horizontally */
             width: 200px;
-            display: inline-block;
+            display: inline-block; /* Display cards inline */
             text-align: center;
         }
 
@@ -21,6 +21,7 @@
         .pagination {
             margin-top: 20px;
             text-align: center;
+            width: 100%; /* Take full width */
         }
 
         .pagination a {
@@ -48,6 +49,11 @@
         #filterButton {
             margin-bottom: 10px;
         }
+
+        #cardDisplay, #searchResults {
+            text-align: center; /* Center card container */
+        }
+
     </style>
 </head>
 <body>
@@ -97,8 +103,10 @@
         </div>
     </div>
 
-    <div id="searchResults" style="display: none;"></div>
-
+    <div id="searchResults" style="display: none;">
+        <div class="pagination"></div>
+    </div>
+    
     <script>
         const searchInput = document.getElementById('searchInput');
         const searchButton = document.getElementById('searchButton');
@@ -154,11 +162,17 @@
                         `;
                     });
                     searchResults.innerHTML = resultsHtml;
-    
-                    const pagination = document.querySelector('.pagination');
+
+                    // Ensure pagination is properly updated
+                    let pagination = searchResults.querySelector('.pagination');
+                    if (!pagination) {
+                        pagination = document.createElement('div');
+                        pagination.classList.add('pagination');
+                        searchResults.appendChild(pagination);
+                    }
                     pagination.innerHTML = '';
-    
-                    if (data.total_pages > 1) { // Only show pagination if more than one page
+
+                    if (data.total_pages > 1) {
                         for (let i = 1; i <= data.total_pages; i++) {
                             const pageLink = document.createElement('a');
                             pageLink.href = '#';
@@ -170,7 +184,8 @@
                             pagination.appendChild(pageLink);
                         }
                     }
-    
+
+                    // Hide default display and show search results
                     cardDisplay.style.display = 'none';
                     searchResults.style.display = 'block';
                 });

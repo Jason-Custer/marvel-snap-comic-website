@@ -116,8 +116,9 @@ def search_dynamic():
             "image": url_for('static', filename=image) # Ensure correct URL formatting
         })
 
-    print(f"JSON Response: {card_data}, Total Pages: {total_pages}")
-    return jsonify({"cards": card_data, "total_pages": total_pages})
+    print(f"Total Cards: {total_cards}")
+    print(f"Total Pages: {total_pages}")
+    return jsonify({"cards": card_data, "total_pages": total_pages})        
 
 if __name__ == "__main__":
     app.run(debug=True)
