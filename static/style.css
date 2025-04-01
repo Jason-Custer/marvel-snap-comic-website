@@ -1,0 +1,49 @@
+.card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px auto;
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 50px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+}
+
+input[type="text"] {
+    margin-bottom: 10px;
+}
+
+#filterButton {
+    margin-bottom: 10px;
+}
+
+#cardDisplay, #searchResults {
+    text-align: center;
+}

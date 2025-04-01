@@ -12634,3 +12634,399 @@ INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 11:21:08] "[36mGET /marvel-snap/cards/
 INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 11:21:08] "[36mGET /marvel-snap/cards/bast.png HTTP/1.1[0m" 304 -
 INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 11:21:08] "[36mGET /marvel-snap/cards/basic-arrow.png HTTP/1.1[0m" 304 -
 INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 11:21:08] "[36mGET /marvel-snap/cards/baron-mordo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:45:08] "[33mGET /apple-touch-icon-precomposed.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:45:08] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:45:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[33mGET /marvel-snap/style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/adam-warlock.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/acid-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/aero.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/agamotto.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/abomination.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/absorbing-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/agent-coulson.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/ajax.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/agent-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/agatha-harkness.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/agent-13.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/agony.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/alioth.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/america-chavez.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/ant-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/angel.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/angela.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/annihilus.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/anti-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/apocalypse.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/arana.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/arishem.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/ares.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/arnim-zola.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/baron-mordo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/baron-zemo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/bast.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/attuma.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:29] "[36mGET /marvel-snap/cards/basic-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "GET /search_dynamic?query=a&energy=&power=&page=1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/abomination.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/acid-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/adam-warlock.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/absorbing-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/aero.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/agamotto.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/agent-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/agent-13.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/agent-coulson.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/agatha-harkness.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/ajax.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/alioth.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/agony.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/america-chavez.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/angel.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/annihilus.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/ant-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/apocalypse.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/angela.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/anti-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/arana.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/arishem.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/arnim-zola.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/ares.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/attuma.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/baron-mordo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/baron-zemo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/basic-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:31] "[36mGET /marvel-snap/cards/bast.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:32] "GET /search_dynamic?query=av&energy=&power=&page=1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:32] "[36mGET /marvel-snap/cards/america-chavez.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:32] "[36mGET /marvel-snap/cards/ravonna-renslayer.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:32] "[36mGET /marvel-snap/cards/havok.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:32] "[36mGET /marvel-snap/cards/wave.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:32] "[36mGET /marvel-snap/cards/kraven.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "GET /search_dynamic?query=a&energy=&power=&page=1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/absorbing-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/abomination.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/acid-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/adam-warlock.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/agamotto.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/agent-13.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/aero.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/agatha-harkness.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/agent-coulson.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/agony.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/agent-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/ajax.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/alioth.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/angel.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/annihilus.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/ant-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/angela.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/america-chavez.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/ares.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/anti-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/apocalypse.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/arishem.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/arana.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/arnim-zola.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/attuma.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/bast.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/baron-mordo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/baron-zemo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:33] "[36mGET /marvel-snap/cards/basic-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "GET /search_dynamic?query=&energy=&power=&page=1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/abomination.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/absorbing-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/adam-warlock.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/acid-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/aero.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/agamotto.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/agatha-harkness.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/agent-coulson.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/agent-13.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/agent-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/agony.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/ajax.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/alioth.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/america-chavez.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/annihilus.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/angel.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/angela.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/ant-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/anti-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/arana.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/ares.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/apocalypse.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/arishem.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/attuma.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/armor.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/arnim-zola.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/baron-zemo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/baron-mordo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/basic-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 20:46:34] "[36mGET /marvel-snap/cards/bast.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[33mGET /marvel-snap/style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/aero.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/absorbing-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/acid-arrow.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/agamotto.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/agent-coulson.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/adam-warlock.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/abomination.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/ajax.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/agent-13.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/agatha-harkness.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/agony.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/agent-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/alioth.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/angel.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/angela.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/america-chavez.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/annihilus.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/ant-man.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/anti-venom.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 21:24:40] "[36mGET /marvel-snap/cards/apocalypse.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/config.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/marvel_snap_zone_api.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/database_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:51] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:51] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:51] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:51] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=oYUBcsMMx6jpHqOkBnf7 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:52] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:52] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:52] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:04:52] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=oYUBcsMMx6jpHqOkBnf7 HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/database_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/database_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:21] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:21] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:21] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=s948KnV7I1Wl9Afl0UQs HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:22] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:22] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:22] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:22] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=s948KnV7I1Wl9Afl0UQs HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:23] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:23] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:23] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:06:23] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=s948KnV7I1Wl9Afl0UQs HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:11:35] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:11:35] "[33mGET /marvel-snap/style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:11:49] "GET /search_dynamic?query=&cost=5,6&power=&page=1 HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/marvel_snap_zone_api.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:24:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:24:06] "[33mGET /marvel-snap/style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:24:20] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:24:20] "[33mGET /marvel-snap/style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:24:20] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:24:20] "[33mGET /marvel-snap/style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:27:13] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:27:13] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:27:14] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:27:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:27:14] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:27:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/database_manager.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/config.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:40:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:40:04] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:40:05] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:40:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:43:36] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:43:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:43:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:43:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:43:49] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:43:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:43:54] "GET /search_dynamic?query=&cost=5,6&power=&page=1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:44:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:44:04] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:44:05] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:44:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/marvel_snap_zone_api.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/marvel_snap_zone_api.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:58:33] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 22:58:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/Users/jasoncuster/Library/Mobile Documents/com~apple~CloudDocs/Web Development/marvel-snap-comic-website/app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 938-259-433
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/abomination.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/absorbing-man.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/acid-arrow.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/adam-warlock.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/aero.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/agamotto.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/agatha-harkness.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/agent-13.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/agent-coulson.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/agent-venom.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/agony.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/america-chavez.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/annihilus.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/angel.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/ant-man.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/angela.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/ajax.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/alioth.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/apocalypse.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/anti-venom.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/arana.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/ares.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/arishem.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/armor.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/arnim-zola.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/attuma.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/baron-mordo.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/baron-zemo.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/basic-arrow.webp.png HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [31/Mar/2025 23:02:00] "[33mGET /static/images/bast.webp.png HTTP/1.1[0m" 404 -

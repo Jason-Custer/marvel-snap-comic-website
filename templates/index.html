@@ -3,58 +3,6 @@
 <head>
     <title>Marvel Snap Cards</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .card {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px auto; /* Center cards horizontally */
-            width: 200px;
-            display: inline-block; /* Display cards inline */
-            text-align: center;
-        }
-
-        .card img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-            width: 100%; /* Take full width */
-        }
-
-        .pagination a {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            margin: 0 5px;
-            text-decoration: none;
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50px;
-            left: 50px;
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 20px;
-            z-index: 1000;
-        }
-
-        input[type="text"] {
-            margin-bottom: 10px;
-        }
-
-        #filterButton {
-            margin-bottom: 10px;
-        }
-
-        #cardDisplay, #searchResults {
-            text-align: center; /* Center card container */
-        }
-
-    </style>
 </head>
 <body>
     <h1>Marvel Snap Cards</h1>
@@ -65,13 +13,13 @@
     <button id="filterButton">Filter</button>
     <div id="filterPopup" class="popup">
         <div>
-            Energy:
-            <label><input type="checkbox" name="energy" value="1"> 1-</label>
-            <label><input type="checkbox" name="energy" value="2"> 2</label>
-            <label><input type="checkbox" name="energy" value="3"> 3</label>
-            <label><input type="checkbox" name="energy" value="4"> 4</label>
-            <label><input type="checkbox" name="energy" value="5"> 5</label>
-            <label><input type="checkbox" name="energy" value="6"> 6+</label>
+            Cost:
+            <label><input type="checkbox" name="cost" value="1"> 1-</label>
+            <label><input type="checkbox" name="cost" value="2"> 2</label>
+            <label><input type="checkbox" name="cost" value="3"> 3</label>
+            <label><input type="checkbox" name="cost" value="4"> 4</label>
+            <label><input type="checkbox" name="cost" value="5"> 5</label>
+            <label><input type="checkbox" name="cost" value="6"> 6+</label>
         </div>
 
         <div>
@@ -92,7 +40,7 @@
             <div class="card">
                 <h2>{{ card.name }}</h2>
                 <img src="{{ card.image }}" alt="{{ card.name }}">
-                <p>Energy: {{ card.energy }}</p>
+                <p>Cost: {{ card.cost }}</p>
                 <p>Power: {{ card.power }}</p>
             </div>
         {% endfor %}
@@ -117,7 +65,7 @@
         const cardDisplay = document.getElementById('cardDisplay');
     
         let query = '';
-        let energyValues = [];
+        let costValues = []; // Changed energyValues to costValues
         let powerValues = [];
     
         filterButton.addEventListener('click', () => {
@@ -126,10 +74,10 @@
     
         applyFilters.addEventListener('click', () => {
             query = searchInput.value;
-            const energyCheckboxes = document.querySelectorAll('input[name="energy"]');
+            const costCheckboxes = document.querySelectorAll('input[name="cost"]'); // Changed energyCheckboxes to costCheckboxes
             const powerCheckboxes = document.querySelectorAll('input[name="power"]');
     
-            energyValues = Array.from(energyCheckboxes)
+            costValues = Array.from(costCheckboxes) // Changed energyValues to costValues
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
             powerValues = Array.from(powerCheckboxes)
@@ -147,7 +95,7 @@
         });
     
         function fetchPage(page) {
-            fetch(`/search_dynamic?query=${query}&energy=${energyValues.join(',')}&power=${powerValues.join(',')}&page=${page}`)
+            fetch(`/search_dynamic?query=${query}&cost=${costValues.join(',')}&power=${powerValues.join(',')}&page=${page}`) // Changed energy to cost
                 .then(response => response.json())
                 .then(data => {
                     let resultsHtml = '';
@@ -156,7 +104,7 @@
                             <div class="card">
                                 <h2>${card.name}</h2>
                                 <img src="${card.image}" alt="${card.name}">
-                                <p>Energy: ${card.energy}</p>
+                                <p>Cost: ${card.cost}</p>
                                 <p>Power: ${card.power}</p>
                             </div>
                         `;
