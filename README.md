@@ -1,101 +1,81 @@
-# Marvel Snap Comic Database
+# Marvel Snap Comic Cover Art Variants
 
-This project aims to create a web application that displays Marvel Snap card information, including comic book connections.
+This project is a web application designed to highlight the connection between Marvel Snap in-game variants and classic Marvel comic book cover art. It fetches card data and variant information from the Marvel Snap Zone API, emphasizing the comic origins of these variants.
 
-## Hour 1: VS Code Installation and Project Setup
+## File Structure
 
-In this hour, I installed VS Code and the Python extension, and set up the basic project structure.
+marvel-snap-project/
+├── app.py              # Flask application logic (routes, data retrieval)
+├── config.py           # Configuration settings (API URLs, database paths)
+├── database_manager.py # Database interaction (SQLite)
+├── marvel_snap_zone_api.py # API interaction (card data and variant retrieval, image downloads)
+├── static/
+│   ├── images/
+│   │   ├── cards/       # Card images
+│   │   └── variants/    # Variant images (comic cover art)
+│   ├── script.js        # Client-side JavaScript logic
+│   └── style.css         # CSS styles
+├── templates/
+│   └── index.html      # HTML template for the main page
+├── cards.db            # SQLite database for card data
+└── variants.db         # SQLite database for variant data (to be implemented)
 
-### VS Code and Python Extension
+## File Descriptions
 
-I installed VS Code and the Python extension.
+* **`app.py`:**
+    * Main Flask application file; handles routes, data retrieval, and rendering.
+* **`config.py`:**
+    * Stores configuration settings like API URLs and database paths.
+* **`database_manager.py`:**
+    * Manages database interactions (SQLite), including card data storage and retrieval.
+* **`marvel_snap_zone_api.py`:**
+    * Interacts with the Marvel Snap Zone API to fetch card and variant data and download images.
+* **`static/images/cards/`:**
+    * Stores standard card images.
+* **`static/images/variants/`:**
+    * Stores variant images, focusing on comic cover art.
+* **`static/script.js`:**
+    * Client-side JavaScript for search, filtering, and dynamic content updates.
+* **`static/style.css`:**
+    * CSS stylesheets for website design.
+* **`templates/index.html`:**
+    * HTML template for the main page, using Jinja2 for dynamic content.
+* **`cards.db`:**
+    * SQLite database for card data.
+* **`variants.db`:**
+    * SQLite database for variant data (to be implemented).
 
-### Project Setup
+## Website Overview
 
-I created the project folder and initial files (`index.html`, `app.py`, `.gitignore`, `README.md`).
+The Marvel Snap Comic Cover Art Variants website aims to educate and entertain Marvel Snap players by showcasing the comic book origins of in-game variants. Key features include:
 
-### Learnings
+* **Variant Showcase:**
+    * Displays Marvel Snap variants alongside their corresponding comic book cover art.
+* **Card and Variant Data:**
+    * Fetches card and variant data from the Marvel Snap Zone API.
+* **Search and Filtering:**
+    * Allows users to search and filter cards and variants.
+* **Image Galleries:**
+    * Provides image galleries to compare in-game variants with their comic cover art sources.
+* **Educational Content:**
+    * Includes information about the comic book origins of each variant.
 
-* Learned how to install and set up VS Code.
-* Learned how to install the Python extension.
-* Learned how to create a basic project structure.
+## Getting Started
 
-## Hour 2: HTML Structure and Static Data
+1.  **Clone the Repository:**
+    * `git clone [repository URL]`
+2.  **Install Dependencies:**
+    * `pip install Flask requests Pillow tqdm`
+3.  **Run the Application:**
+    * `python app.py`
+4.  **Open in Browser:**
+    * Open your web browser and navigate to `http://127.0.0.1:5000/`.
 
-In this hour, I created the basic HTML structure for the website and set up the static card data.
+## Future Improvements
 
-### HTML Structure
-
-I created the basic HTML structure in `index.html`, including a placeholder for the card data.
-
-### Static Card Data
-
-I created a Python list of dictionaries in `app.py` to represent the card data (Iron Man and Hulk). I also downloaded sample card images and placed them in the "images" folder, naming them "iron-man.png" and "hulk.png".
-
-### Learnings
-
-* Learned the basic structure of an HTML document.
-* Learned how to create a Python list of dictionaries to store data.
-* Learned how to create a folder within the project.
-* Learned how to add images to the project and the importance of consistent naming conventions.
-
-## Hour 3: Flask App Setup and Basic Display Logic
-
-In this hour, I set up a basic Flask application and implemented the logic to display the static card data in the `index.html` template.
-
-### Flask Setup
-
-I installed Flask and created a basic Flask application in `app.py`. I also created a `templates` folder and moved `index.html` into it.
-
-### Display Logic
-
-I modified `app.py` to pass the `card_data` to the `index.html` template.
-
-### Learnings
-
-* Learned how to create a basic Flask application.
-* Learned how to use `render_template` to pass data to an HTML template.
-* Learned how to run a Flask application.
-* Learned how to create a templates folder.
-
-## Hour 4: Displaying Card Images and Information
-
-In this hour, I modified the `index.html` template to display the card images and information from the `card_data` that is passed from the Flask app.
-
-### HTML Modification
-
-I used Jinja2 templating to loop through the `cards` list and display the card names, energy, power, and images.
-
-### Learnings
-
-* Learned how to use Jinja2 templating to display dynamic content in HTML.
-* Learned how to display images in HTML.
-* Learned how to loop through a list of dictionaries in Jinja2.
-* Learned how to configure Flask to serve static files.
-
-## Hour 5: Version Control with GitHub
-
-In this hour, I initialized a Git repository, created a GitHub repository, and connected them to establish version control for the project.
-
-### Git Initialization
-
-I initialized a Git repository using the `git init` command.
-
-### GitHub Repository Creation
-
-I created a new GitHub repository for the project.
-
-### Connecting Local and Remote Repositories
-
-I connected the local repository to the remote repository using the `git remote add origin` command. I then committed and pushed the code to GitHub.
-
-### .gitignore
-
-I created a `.gitignore` file to ignore unnecessary files and folders.
-
-### Learnings
-
-* Learned how to initialize a Git repository.
-* Learned how to create a GitHub repository.
-* Learned how to connect local and remote repositories.
-* Learned how to use `.gitignore` to ignore files.
+* Implement the variant database and retrieval.
+* Add detailed information about the comic book origins of each variant.
+* Enhance the image galleries and comparison features.
+* Improve the UI/UX for a more engaging experience.
+* Incorporate user feedback and suggestions.
+* Add ability to view individual card and variant details.
