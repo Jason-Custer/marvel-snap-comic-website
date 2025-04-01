@@ -6,15 +6,14 @@ It handles routing, data retrieval, and rendering of templates.
 from flask import Flask, render_template, request, jsonify, url_for
 import logging
 from marvel_snap_zone_api import get_cards, download_images
-from database_manager import create_database, get_card_data_from_db, insert_cards_into_db # Import get_card_data_from_db
+from database_manager import create_database, get_card_data_from_db, insert_cards_into_db
 from config import DB_PATH
 
 app = Flask(__name__, static_folder='static')
 
 logging.basicConfig(filename='app.log', level=logging.ERROR)
 
-# Call create_database() to ensure the cards table exists
-print(f"Database Path: {DB_PATH}")  # Added print statement
+print(f"Database Path: {DB_PATH}")
 create_database()
 
 def update_cards_data():
@@ -22,10 +21,9 @@ def update_cards_data():
     cards = get_cards()
     print(f"API Cards Data: {cards}")
     if cards:
-        download_images(cards)
-        print("Attempting to insert cards into database.")
+        download_images(cards, "cards") # Pass "cards" subdir
         insert_cards_into_db(cards)
-        print("Card data inserted into database.")
+        print("Card data updated.")
     else:
         print("Failed to retrieve card data.")
 
@@ -37,7 +35,7 @@ def index():
     page = int(request.args.get('page', 1))
     cards, total_pages = get_card_data_from_db(page)
 
-    print(f"Cards data: {cards}") # Print the card data
+    print(f"Cards data: {cards}")
 
     return render_template("index.html", cards=cards, total_pages=total_pages, current_page=page)
 

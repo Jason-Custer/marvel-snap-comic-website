@@ -35,36 +35,32 @@ def get_cards(url: str = CARDS_API_URL):
         print(f"Error: API request failed: {e}")
         return []
 
-def create_directories():
-    """Creates the static/images directory for the card images."""
-    image_dir = os.path.join("static", "images")
-    if not os.path.exists(image_dir):
-        os.makedirs(image_dir)
-        print("Created static/images directory.")
-    else:
-        print("static/images directory already exists")
-
-def download_images(card_data):
-    """Downloads card images from the Marvel Snap Zone API."""
+def download_images(card_data, subdir):
+    """Downloads card images to specified subdirectory."""
     if not card_data:
         print("No card data to download images for.")
         return
 
-    create_directories()  # Ensure the directory exists
+    image_dir = os.path.join("static", "images", subdir)
+    if not os.path.exists(image_dir):
+        os.makedirs(image_dir)
+        print(f"Created {image_dir} directory.")
+    else:
+        print(f"{image_dir} directory already exists.")
 
-    urls = [card['art'] for card in card_data if card.get('art')]  # Extract image URLs
+    urls = [card['art'] for card in card_data if card.get('art')]
 
-    print(f"Downloading {len(urls)} images.") # added print statement
+    print(f"Downloading {len(urls)} images to {image_dir}.")
 
     overall_progress = tqdm(total=len(urls), unit=' URL')
 
     def download_image(url):
         """Downloads a single image from a URL."""
-        temp_file_path = None  # Initialize temp_file_path
+        temp_file_path = None
 
         try:
             file_name = url.rsplit('/', 1)[-1].rsplit('?', 1)[0]
-            file_path = os.path.join("static", "images", file_name)
+            file_path = os.path.join(image_dir, file_name)
             png_file_path = os.path.splitext(file_path)[0] + ".png"
 
             if os.path.exists(png_file_path):
@@ -82,13 +78,13 @@ def download_images(card_data):
             image.save(png_file_path, "PNG")
             overall_progress.update(1)
 
-            print(f"Downloaded: {url}") # added print statement
+            print(f"Downloaded: {url}")
 
         except requests.exceptions.RequestException:
             overall_progress.update(1)
 
         finally:
-            if temp_file_path and os.path.exists(temp_file_path):  # Check if defined and exists
+            if temp_file_path and os.path.exists(temp_file_path):
                 os.remove(temp_file_path)
 
     with ThreadPoolExecutor(max_workers=5) as executor:

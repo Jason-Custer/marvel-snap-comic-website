@@ -13,7 +13,7 @@ def create_database():
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS cards (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            cid TEXT PRIMARY KEY,
             name TEXT,
             cost INTEGER,
             power INTEGER,
@@ -29,10 +29,12 @@ def insert_cards_into_db(cards):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     for card in cards:
+        image_filename = os.path.splitext(card['art'].rsplit('/', 1)[-1].rsplit('?', 1)[0])[0] + ".png"
+        image_path = os.path.join("images", "cards", image_filename)
         cursor.execute("""
-            INSERT OR REPLACE INTO cards (name, cost, power, image)
-            VALUES (?, ?, ?, ?)
-        """, (card['name'], card['cost'], card['power'], os.path.join("images", card['art'].rsplit('/', 1)[-1].rsplit('?', 1)[0] + ".png")))
+            INSERT OR REPLACE INTO cards (cid, name, cost, power, image)
+            VALUES (?, ?, ?, ?, ?)
+        """, (card['cid'], card['name'], card['cost'], card['power'], image_path))
     conn.commit()
     conn.close()
     print("Cards inserted into database.")
@@ -90,8 +92,6 @@ def get_card_data_from_db(page, query=None, cost=None, power=None):
 
     card_data = []
     for name, cost, power, image in cards:
-        if image.startswith('cards/'):
-            image = image.replace('cards/', '', 1)  # Strip out prefix
         card_data.append({
             "name": name,
             "cost": cost,
