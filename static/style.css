@@ -1,10 +1,17 @@
+/* Container for the whole page content */
+.page-container {
+    width: 90%; /* Adjust as needed */
+    max-width: 1200px; /* Optional: limit max width */
+    margin: 20px auto; /* Center the container */
+    text-align: center; /* Center text within the container */
+}
+
 .card {
     border: 1px solid #ddd;
     padding: 10px;
-    margin: 10px auto;
+    margin: 10px;
     width: 200px;
     display: inline-block;
-    text-align: center;
 }
 
 .card img {
@@ -14,7 +21,6 @@
 
 .pagination {
     margin-top: 20px;
-    text-align: center;
     width: 100%;
 }
 
@@ -36,12 +42,18 @@
     z-index: 1000;
 }
 
-input[type="text"] {
+/* Compact filter */
+#filter-container {
+    display: flex;
+    justify-content: center; /* Center the filter elements */
     margin-bottom: 10px;
 }
 
-#filterButton {
-    margin-bottom: 10px;
+#filter-container input[type="text"],
+#filter-container select,
+#filter-container button {
+    margin: 5px; /* Reduced margins */
+    padding: 5px 10px; /* Reduced padding */
 }
 
 #cardDisplay, #searchResults {

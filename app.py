@@ -5,27 +5,27 @@ It handles routing, data retrieval, and rendering of templates.
 
 from flask import Flask, render_template, request, jsonify, url_for
 import logging
-from marvel_snap_zone_api import get_cards, download_images
+from marvel_snap_zone_api import get_cards, download_images, download_variants
 from database_manager import create_database, get_card_data_from_db, insert_cards_into_db
-from config import DB_PATH
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__, static_folder='static')
 
 logging.basicConfig(filename='app.log', level=logging.ERROR)
 
-print(f"Database Path: {DB_PATH}")
 create_database()
 
 def update_cards_data():
-    """Updates card data and images."""
+    """Updates the database and downloads card images."""
     cards = get_cards()
-    print(f"API Cards Data: {cards}")
     if cards:
-        download_images(cards, "cards") # Pass "cards" subdir
         insert_cards_into_db(cards)
-        print("Card data updated.")
+        download_images(cards)  # Remove the "cards" subdir argument
+        download_variants(cards)
     else:
-        print("Failed to retrieve card data.")
+        print("Error: Could not retrieve cards from API. Database not updated.")
 
 update_cards_data()
 
@@ -34,8 +34,6 @@ def index():
     """Renders the index page with card data and pagination."""
     page = int(request.args.get('page', 1))
     cards, total_pages = get_card_data_from_db(page)
-
-    print(f"Cards data: {cards}")
 
     return render_template("index.html", cards=cards, total_pages=total_pages, current_page=page)
 
@@ -46,6 +44,8 @@ def search_dynamic():
     cost = request.args.get('cost')
     power = request.args.get('power')
     page = int(request.args.get('page', 1))
+
+    print(f"Search Query: {query}, Cost: {cost}, Power: {power}")
 
     cards, total_pages = get_card_data_from_db(page, query, cost, power)
     return jsonify({"cards": cards, "total_pages": total_pages})
