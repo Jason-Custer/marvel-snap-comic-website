@@ -99,37 +99,51 @@ def get_card_data_from_db(page, query=None, cost=None, power=None):
         conn = sqlite3.connect(CARDS_DB_PATH)
         cursor = conn.cursor()
 
-        sql = """
+        base_sql = """
             SELECT cid, name, type, cost, power, ability, flavor, art, alternate_art, url, status, carddefid
             FROM cards
             WHERE 1=1
         """
-        params = []
-
-        if query:
-            sql += " AND name LIKE ?"
-            params.append(f"%{query}%")
-        if cost:
-            cost_values = cost.split(',')
-            sql += " AND cost IN (" + ",".join(["?"] * len(cost_values)) + ")"
-            params.extend(cost_values)
-        if power:
-            power_values = power.split(',')
-            sql += " AND power IN (" + ",".join(["?"] * len(power_values)) + ")"
-            params.extend(power_values)
-
         count_sql = "SELECT COUNT(*) FROM cards WHERE 1=1"
-        count_params = params[:]
+        
+        params = []
+        count_params = []
 
+        if query and query.strip():
+            base_sql += " AND name LIKE ?"
+            count_sql += " AND name LIKE ?"
+            param_value = f"%{query}%"
+            params.append(param_value)
+            count_params.append(param_value)
+
+        if cost and cost.strip():
+            cost_values = cost.split(',')
+            placeholders = ",".join(["?"] * len(cost_values))
+            base_sql += f" AND cost IN ({placeholders})"
+            count_sql += f" AND cost IN ({placeholders})"
+            params.extend(cost_values)
+            count_params.extend(cost_values)
+
+        if power and power.strip():
+            power_values = power.split(',')
+            placeholders = ",".join(["?"] * len(power_values))
+            base_sql += f" AND power IN ({placeholders})"
+            count_sql += f" AND power IN ({placeholders})"
+            params.extend(power_values)
+            count_params.extend(power_values)
+
+        # Execute count query
         cursor.execute(count_sql, count_params)
         total_cards = cursor.fetchone()[0]
-        total_pages = math.ceil(total_cards / CARDS_PER_PAGE)
+        total_pages = math.ceil(total_cards / CARDS_PER_PAGE) if total_cards > 0 else 1
 
-        sql += f" LIMIT {CARDS_PER_PAGE} OFFSET {(page - 1) * CARDS_PER_PAGE}"
+        # Add pagination
+        base_sql += " LIMIT ? OFFSET ?"
+        params.append(CARDS_PER_PAGE)
+        params.append((page - 1) * CARDS_PER_PAGE)
 
-        logging.debug(f"Executing SQL: {sql} with params: {params}")
-
-        cursor.execute(sql, params)
+        logging.debug(f"Executing SQL: {base_sql} with params: {params}")
+        cursor.execute(base_sql, params)
         cards = cursor.fetchall()
 
         logging.debug(f"Fetched {len(cards)} cards from database.")
