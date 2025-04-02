@@ -2,7 +2,6 @@ import sqlite3
 import os
 import math
 from config import CARDS_DB_PATH, VARIANTS_DB_PATH
-from flask import url_for
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -35,13 +34,13 @@ def create_database():
     print("Database created or verified.")
 
 def insert_cards_into_db(cards):
-    """Inserts card data into the database."""
+    """Inserts card data into the database with corrected art paths."""
     conn = sqlite3.connect(CARDS_DB_PATH)
     cursor = conn.cursor()
     for card in cards:
         if card['art']:
             image_filename = os.path.splitext(os.path.basename(card['art'].split('?', 1)[0]))[0] + ".png"
-            image_path = os.path.join("static", "images", "cards", image_filename)
+            image_path = os.path.join("images", "cards", image_filename)  # Removed "static"
         else:
             image_path = None
         cursor.execute("""
@@ -55,15 +54,25 @@ def insert_cards_into_db(cards):
     print("Cards inserted into database.")
 
 def create_variants_table():
-    """Creates the SQLite variants table."""
+    """Creates the SQLite variants table with all desired columns."""
     conn = sqlite3.connect(VARIANTS_DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS variants (
             variant_id INTEGER PRIMARY KEY AUTOINCREMENT,
             cid TEXT,
+            vid INTEGER,
             variant_url TEXT,
             variant_image TEXT,
+            rarity TEXT,
+            rarity_slug TEXT,
+            variant_order TEXT,
+            status TEXT,
+            full_description TEXT,
+            inker TEXT,
+            sketcher TEXT,
+            colorist TEXT,
+            ReleaseDate INTEGER,
             FOREIGN KEY (cid) REFERENCES cards (cid)
         )
     """)
@@ -72,19 +81,33 @@ def create_variants_table():
     print("Variants table created or verified.")
 
 def insert_variants_into_db(cid, variants):
-    """Inserts variant data into the variants table with PNG paths."""
+    """Inserts variant data into the variants table with specified fields."""
     conn = sqlite3.connect(VARIANTS_DB_PATH)
     cursor = conn.cursor()
     for variant in variants:
         image_url = variant.get('art')
         art_filename = variant.get('art_filename')
         if image_url and art_filename:
-            png_filename = os.path.splitext(art_filename.rsplit('?', 1)[0])[0] + ".png" #convert to png extension
-            image_path = os.path.join("static", "images", "variants", png_filename) #use the png filename.
+            png_filename = os.path.splitext(art_filename.rsplit('?', 1)[0])[0] + ".png"
+            image_path = os.path.join("images", "variants", png_filename)
             cursor.execute("""
-                INSERT OR REPLACE INTO variants (cid, variant_url, variant_image)
-                VALUES (?, ?, ?)
-            """, (cid, image_url, image_path))
+                INSERT OR REPLACE INTO variants (cid, vid, variant_url, variant_image, rarity, rarity_slug, variant_order, status, full_description, inker, sketcher, colorist, ReleaseDate)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                cid,
+                variant.get('vid'),
+                image_url,
+                image_path,
+                variant.get('rarity'),
+                variant.get('rarity_slug'),
+                variant.get('variant_order'),
+                variant.get('status'),
+                variant.get('full_description'),
+                variant.get('inker'),
+                variant.get('sketcher'),
+                variant.get('colorist'),
+                variant.get('ReleaseDate')
+            ))
         else:
             print(f"Warning: Missing art or art_filename for variant of card CID: {cid}")
     conn.commit()

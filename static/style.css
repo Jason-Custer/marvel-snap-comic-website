@@ -59,3 +59,29 @@
 #cardDisplay, #searchResults {
     text-align: center;
 }
+
+/* Center the base card and its details */
+.card-detail-container {
+    text-align: center;
+    margin: 20px auto; /* Add margin for spacing */
+    max-width: 800px; /* Optional: limit width */
+}
+
+/* Variant card wrapper */
+.variant-card {
+    display: inline-block; /* Display variants in a row */
+    margin: 10px;
+    text-align: center;
+    width: 200px; /* Adjust width as needed */
+}
+
+/* Variant image styles */
+.variant-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Variant comic links */
+.variant-comic-links {
+    margin-top: 10px;
+}

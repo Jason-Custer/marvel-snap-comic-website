@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ card.name }} Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card-detail-container">
+        <h1>{{ card.name }}</h1>
+
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Cost</th>
+                <th>Power</th>
+                <th>Type</th>
+                {% if card.alternate_art %}
+                <th>Alternate Art</th>
+                {% endif %}
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="{{ url_for('static', filename=card.art) }}" alt="{{ card.name }}" style="max-width: 300px;">
+                    {% if card.ability %}
+                    <p>{{ card.ability }}</p>
+                    {% elif card.flavor %}
+                    <p>{{ card.flavor }}</p>
+                    {% endif %}
+                </td>
+                <td>{{ card.cost }}</td>
+                <td>{{ card.power }}</td>
+                <td>{{ card.type }}</td>
+                {% if card.alternate_art %}
+                <td>{{ card.alternate_art }}</td>
+                {% endif %}
+                <td>{{ card.status }}</td>
+            </tr>
+        </table>
+
+        <h2>Variants:</h2>
+        <div style="display: flex; flex-wrap: wrap;">
+            {% for variant in variants %}
+                <div class="variant-card">
+                    <img src="{{ url_for('static', filename=variant.image_path) }}" alt="{{ card.name }} Variant" style="max-width: 200px;">
+                    <p>{{ variant.full_description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
