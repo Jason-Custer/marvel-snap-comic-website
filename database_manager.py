@@ -1,7 +1,7 @@
 import sqlite3
 import os
 import math
-from config import CARDS_DB_PATH, VARIANTS_DB_PATH
+from config import DATABASE_PATH
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -9,10 +9,11 @@ logging.basicConfig(level=logging.DEBUG)
 CARDS_PER_PAGE = 30
 
 def create_database():
-    """Creates the SQLite database and cards table."""
-    os.makedirs(os.path.dirname(CARDS_DB_PATH), exist_ok=True)
-    conn = sqlite3.connect(CARDS_DB_PATH)
+    """Creates the SQLite database and the cards, variants, and comics tables if they don't exist."""
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
+
+    # Create cards table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS cards (
             cid TEXT PRIMARY KEY,
@@ -29,34 +30,8 @@ def create_database():
             carddefid TEXT
         )
     """)
-    conn.commit()
-    conn.close()
-    print("Database created or verified.")
 
-def insert_cards_into_db(cards):
-    """Inserts card data into the database with corrected art paths."""
-    conn = sqlite3.connect(CARDS_DB_PATH)
-    cursor = conn.cursor()
-    for card in cards:
-        if card['art']:
-            image_filename = os.path.splitext(os.path.basename(card['art'].split('?', 1)[0]))[0] + ".png"
-            image_path = os.path.join("images", "cards", image_filename)  # Removed "static"
-        else:
-            image_path = None
-        cursor.execute("""
-            INSERT OR REPLACE INTO cards (cid, name, type, cost, power, ability, flavor, art, alternate_art, url, status, carddefid)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (card['cid'], card['name'], card['type'], card['cost'], card['power'], card['ability'], card['flavor'], image_path, card['alternate_art'], card['url'], card['status'], card['carddefid']))
-        if card['variants']:
-            insert_variants_into_db(card['cid'], card['variants'])
-    conn.commit()
-    conn.close()
-    print("Cards inserted into database.")
-
-def create_variants_table():
-    """Creates the SQLite variants table with all desired columns."""
-    conn = sqlite3.connect(VARIANTS_DB_PATH)
-    cursor = conn.cursor()
+    # Create variants table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS variants (
             variant_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,13 +51,51 @@ def create_variants_table():
             FOREIGN KEY (cid) REFERENCES cards (cid)
         )
     """)
+
+    # Create comics table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS comics (
+            comic_link_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            variant_id INTEGER,
+            marvel_link TEXT,
+            marvel_unlimited_link TEXT,
+            amazon_link TEXT,
+            cover_image TEXT,
+            FOREIGN KEY (variant_id) REFERENCES variants (variant_id)
+        )
+    """)
+
     conn.commit()
     conn.close()
-    print("Variants table created or verified.")
+    print(f"Database and tables created or verified at: {DATABASE_PATH}")
 
-def insert_variants_into_db(cid, variants):
-    """Inserts variant data into the variants table with specified fields."""
-    conn = sqlite3.connect(VARIANTS_DB_PATH)
+def insert_cards_into_db(cards):
+    """Inserts card data into the cards table of the single database."""
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    for card in cards:
+        if card['art']:
+            image_filename = os.path.splitext(os.path.basename(card['art'].split('?', 1)[0]))[0] + ".png"
+            image_path = os.path.join("images", "cards", image_filename)
+        else:
+            image_path = None
+        cursor.execute("""
+            INSERT OR REPLACE INTO cards (cid, name, type, cost, power, ability, flavor, art, alternate_art, url, status, carddefid)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (card['cid'], card['name'], card['type'], card['cost'], card['power'], card['ability'], card['flavor'], image_path, card['alternate_art'], card['url'], card['status'], card['carddefid']))
+        if card['variants']:
+            insert_variants_into_db(card['cid'], card['variants'], conn) # Pass the connection
+    conn.commit()
+    conn.close()
+    print(f"{len(cards)} cards inserted/updated in: {DATABASE_PATH}")
+
+def insert_variants_into_db(cid, variants, conn=None): # Accept an optional connection
+    """Inserts variant data into the variants table of the single database."""
+    if conn is None:
+        conn = sqlite3.connect(DATABASE_PATH)
+        close_conn = True
+    else:
+        close_conn = False
     cursor = conn.cursor()
     for variant in variants:
         image_url = variant.get('art')
@@ -108,18 +121,23 @@ def insert_variants_into_db(cid, variants):
                 variant.get('colorist'),
                 variant.get('ReleaseDate')
             ))
+            variant_id = cursor.lastrowid # Get the ID of the last inserted variant
+            # Here you would call a function to insert comic data for this variant
+            # Example: if 'comic_links' in variant:
+            #     insert_comic_link_into_db(variant_id, variant['comic_links'], conn)
         else:
             print(f"Warning: Missing art or art_filename for variant of card CID: {cid}")
-    conn.commit()
-    conn.close()
-    print(f"Variants for {cid} downloaded and inserted.")
+    if close_conn:
+        conn.commit()
+        conn.close()
+    print(f"Variants for {cid} inserted/updated in: {DATABASE_PATH}")
 
 def get_card_data_from_db(page, query=None, cost=None, power=None):
-    """Retrieves card data from the database with pagination and optional filters."""
+    """Retrieves card data from the single database with pagination and optional filters."""
     conn = None
     cursor = None
     try:
-        conn = sqlite3.connect(CARDS_DB_PATH)
+        conn = sqlite3.connect(DATABASE_PATH)
         cursor = conn.cursor()
 
         base_sql = """
@@ -128,7 +146,7 @@ def get_card_data_from_db(page, query=None, cost=None, power=None):
             WHERE 1=1
         """
         count_sql = "SELECT COUNT(*) FROM cards WHERE 1=1"
-        
+
         params = []
         count_params = []
 

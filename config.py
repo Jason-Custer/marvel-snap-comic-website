@@ -8,9 +8,8 @@ and directory paths to keep them separate from the main application logic.
 # config.py
 import os
 
-# Database paths
-CARDS_DB_PATH = 'database/cards.db'
-VARIANTS_DB_PATH = 'database/variants.db'
+# Database
+DATABASE_PATH = 'data/snap_data.db'
 
 # Image download directories
 CARDS_API_URL = 'https://marvelsnapzone.com/getinfo/?searchtype=cards&searchcardstype=true'

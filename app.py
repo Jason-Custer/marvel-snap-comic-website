@@ -6,9 +6,9 @@ It handles routing, data retrieval, and rendering of templates.
 from flask import Flask, render_template, request, jsonify, url_for
 import logging
 from marvel_snap_zone_api import get_cards, download_images, download_variants
-from database_manager import create_database, get_card_data_from_db, insert_cards_into_db, create_variants_table
+from database_manager import create_database, get_card_data_from_db, insert_cards_into_db
 import sqlite3
-from config import CARDS_DB_PATH, VARIANTS_DB_PATH
+from config import DATABASE_PATH
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -17,7 +17,6 @@ app = Flask(__name__, static_folder='static')
 logging.basicConfig(filename='app.log', level=logging.ERROR)
 
 create_database()
-create_variants_table() 
 
 def update_cards_data():
     """Updates the database and downloads card images."""
@@ -54,10 +53,12 @@ def search_dynamic():
 
 @app.route('/card/<cid>')
 def card_detail(cid):
-    """Displays detailed information for a specific card and its variants."""
+    """Displays detailed information for a specific card and its variants with comic links."""
+    conn = None
     try:
-        conn = sqlite3.connect(CARDS_DB_PATH)
+        conn = sqlite3.connect(DATABASE_PATH)
         cursor = conn.cursor()
+        cursor.row_factory = sqlite3.Row  # Allows accessing columns by name
 
         # Get base card data
         cursor.execute("SELECT * FROM cards WHERE cid = ?", (cid,))
@@ -66,33 +67,43 @@ def card_detail(cid):
         if not card:
             return "Card not found", 404
 
-        card_dict = {
-            'cid': card[0], 'name': card[1], 'type': card[2], 'cost': card[3],
-            'power': card[4], 'ability': card[5], 'flavor': card[6], 'art': card[7],
-            'alternate_art': card[8], 'url': card[9], 'status': card[10], 'carddefid': card[11]
-        }
+        card_dict = dict(card)
 
-        # Get variant data
-        conn_variants = sqlite3.connect(VARIANTS_DB_PATH)
-        cursor_variants = conn_variants.cursor()
-        cursor_variants.execute("SELECT * FROM variants WHERE cid = ?", (cid,))
-        variants = cursor_variants.fetchall()
+        # Get variant data and associated comic links using a JOIN
+        cursor.execute("""
+            SELECT v.*, c.marvel_link, c.marvel_unlimited_link, c.amazon_link, c.cover_image
+            FROM variants v
+            LEFT JOIN comics c ON v.variant_id = c.variant_id
+            WHERE v.cid = ?
+        """, (cid,))
+        variants_with_comics = cursor.fetchall()
+
         variants_list = []
-        for variant in variants:
-            variants_list.append({
-                'variant_id': variant[0], 'cid': variant[1], 'variant_url': variant[2],
-                'variant_image': variant[3]
-            })
-
-        # Placeholder comic data
-        comic_links = {
-            variant['variant_id']: {
-                'marvel_link': 'https://www.marvel.com/comics/issue/0/example_issue_1',
-                'marvel_unlimited_link': 'https://www.marvel.com/comics/series/0/example_series_1',
-                'amazon_link': 'https://www.amazon.com/dp/B00EXAMPLE',
-                'cover_image': 'https://via.placeholder.com/150' # Placeholder image
-            } for variant in variants_list
-        }
+        comic_links = {}
+        for row in variants_with_comics:
+            variant = {
+                'variant_id': row['variant_id'],
+                'cid': row['cid'],
+                'vid': row['vid'],
+                'variant_url': row['variant_url'],
+                'variant_image': row['variant_image'],
+                'rarity': row['rarity'],
+                'rarity_slug': row['rarity_slug'],
+                'variant_order': row['variant_order'],
+                'status': row['status'],
+                'full_description': row['full_description'],
+                'inker': row['inker'],
+                'sketcher': row['sketcher'],
+                'colorist': row['colorist'],
+                'ReleaseDate': row['ReleaseDate']
+            }
+            variants_list.append(variant)
+            comic_links[variant['variant_id']] = {
+                'marvel_link': row['marvel_link'],
+                'marvel_unlimited_link': row['marvel_unlimited_link'],
+                'amazon_link': row['amazon_link'],
+                'cover_image': row['cover_image']
+            }
 
         return render_template('card_detail.html', card=card_dict, variants=variants_list, comic_links=comic_links)
 
@@ -105,8 +116,6 @@ def card_detail(cid):
     finally:
         if conn:
             conn.close()
-        if conn_variants:
-            conn_variants.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
