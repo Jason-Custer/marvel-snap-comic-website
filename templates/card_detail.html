@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>{{ card.name }} Details</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ card.name }} - Marvel Snap Comic Explorer</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    </head>
 <body>
     <div class="card-detail-container">
         <h1>{{ card.name }}</h1>
-
+        <a href="{{ url_for('index') }}" class="back-link">&larr; Back to Main Page</a>
         <table>
             <tr>
                 <th>Image</th>
@@ -40,13 +42,20 @@
 
         <h2>Variants:</h2>
         <div style="display: flex; flex-wrap: wrap;">
-            {% for variant in variants %}
-                <div class="variant-card">
-                    <img src="{{ url_for('static', filename=variant.variant_image) }}" alt="{{ card.name }} Variant" style="max-width: 200px;">
-                    <p>{{ variant.full_description }}</p>
+            {% if card.variants %}
+                <div class="variant-images">
+                    {% for variant in card.variants %}
+                        <a href="{{ url_for('variant_detail', variant_id=variant.variant_id) }}">
+                            <img src="{{ url_for('static', filename=variant.variant_image) }}"
+                                alt="{{ card.name }} Variant #{{ variant.vid }}"
+                                style="max-width: 150px; height: auto; margin-right: 10px;">
+                        </a>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
+            {% else %}
+                <p>No variants available for this card.</p>
+            {% endif %}
+                </div>
     </div>
 </body>
 </html>

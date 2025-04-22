@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variant Detail - {{ variant.card_name }} (Variant #{{ variant.vid }})</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Variant Detail</h1>
+    <a href="{{ url_for('index') }}" class="back-link">&larr; Back to Main Page</a>
+    <a href="{{ url_for('card_detail', cid=variant.cid) }}" class="back-link">&larr; Back to {{ variant.card_name }} Details</a>
+    <div class="container">
+        <div class="variant-section">
+            <h2>{{ variant.card_name }} (Variant #{{ variant.vid }})</h2>
+            <img src="{{ url_for('static', filename=variant.variant_image) }}" alt="{{ variant.card_name }} Variant" class="variant-image">
+            <div class="info-below">
+                <p><strong>Rarity:</strong> {{ variant.rarity }}</p>
+                {% if variant.full_description %}
+                    <p><strong>Description:</strong> {{ variant.full_description }}</p>
+                {% endif %}
+                {% if variant.inker %}
+                    <p><strong>Inker:</strong> {{ variant.inker }}</p>
+                {% endif %}
+                {% if variant.sketcher %}
+                    <p><strong>Sketcher:</strong> {{ variant.sketcher }}</p>
+                {% endif %}
+                {% if variant.colorist %}
+                    <p><strong>Colorist:</strong> {{ variant.colorist }}</p>
+                {% endif %}
+                {% if variant.ReleaseDate %}
+                    <p><strong>Release Date:</strong> {{ variant.ReleaseDate }}</p>
+                {% endif %}
+                <p><strong>Status:</strong> {{ variant.status }}</p>
+                <p><strong>Variant Order:</strong> {{ variant.variant_order }}</p>
+                <p><strong>Variant URL:</strong> <a href="{{ variant.variant_url }}" target="_blank">{{ variant.variant_url }}</a></p>
+                <p><strong>CID:</strong> {{ variant.cid }}</p>
+                <p><strong>Variant ID:</strong> {{ variant.variant_id }}</p>
+                <p><strong>VID:</strong> {{ variant.vid }}</p>
+                <p><strong>Rarity Slug:</strong> {{ variant.rarity_slug }}</p>
+            </div>
+        </div>
+        <div class="comic-section">
+            <h2>Comic Information</h2>
+            <div class="comic-placeholder">Placeholder Comic Image</div>
+            <div class="info-below">
+                <p>Comic information will go here.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

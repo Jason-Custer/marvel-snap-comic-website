@@ -6,7 +6,7 @@ It handles routing, data retrieval, and rendering of templates.
 from flask import Flask, render_template, request, jsonify, url_for
 import logging
 from marvel_snap_zone_api import get_cards, download_images, download_variants
-from database_manager import create_database, get_card_data_from_db, insert_cards_into_db
+from database_manager import create_database, get_card_data_from_db, insert_cards_into_db, get_variant_detail_from_db, get_card_with_variants_from_db
 import sqlite3
 from config import DATABASE_PATH
 
@@ -57,6 +57,15 @@ def search_dynamic():
     cards, total_pages = get_card_data_from_db(page, query, cost, power)
     return jsonify({"cards": cards, "total_pages": total_pages})
 
+@app.route('/variant/<int:variant_id>')
+def variant_detail(variant_id):
+    variant_data = get_variant_detail_from_db(variant_id)
+    if variant_data:
+        return render_template('variant_detail.html', variant=variant_data)
+    else:
+        # Handle the case where the variant_id is not found
+        return render_template('error.html', message="Variant not found.")
+
 @app.route('/card/<cid>')
 def card_detail(cid):
     """Displays detailed information for a specific card and its variants with comic links."""
@@ -75,7 +84,7 @@ def card_detail(cid):
 
         card_dict = dict(card)
 
-        # Get variant data (no JOIN yet)
+        # Get variant data
         cursor.execute("""
             SELECT
                 variant_id, cid, vid, variant_url, variant_image,
@@ -90,9 +99,12 @@ def card_detail(cid):
 
         variants_list = [dict(row) for row in variants_data]
         for variant in variants_list:
-            print(f"Variant data: {variant}") # Keep this for now
+            print(f"Variant data: {variant}")
 
-        # Get comic link data for all variants of this card
+        # Attach variants to the card_dict
+        card_dict['variants'] = variants_list
+
+        # Get comic link data
         cursor.execute("""
             SELECT variant_id, marvel_link, marvel_unlimited_link, amazon_link, cover_image
             FROM comics
@@ -108,10 +120,6 @@ def card_detail(cid):
                 'amazon_link': row['amazon_link'],
                 'cover_image': row['cover_image']
             }
-
-        # Optionally, combine comic links into the variants_list if needed
-        for variant in variants_list:
-            variant['comic_links'] = comic_links.get(variant['variant_id'], {})
 
         return render_template('card_detail.html', card=card_dict, variants=variants_list, comic_links=comic_links)
 

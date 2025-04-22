@@ -225,3 +225,124 @@ def get_card_data_from_db(page, query=None, cost=None, power=None):
         if conn:
             conn.close()
             logging.debug("Database connection closed.")
+
+def get_card_with_variants_from_db(cid):
+    """Retrieves a single card and its associated variants from the database."""
+    conn = None
+    cursor = None
+    try:
+        conn = sqlite3.connect(DATABASE_PATH)
+        cursor = conn.cursor()
+
+        # Fetch the card details
+        cursor.execute("""
+            SELECT cid, name, type, cost, power, ability, flavor, art, alternate_art, url, status, carddefid
+            FROM cards
+            WHERE cid = ?
+        """, (cid,))
+        card_row = cursor.fetchone()
+
+        if card_row:
+            card = {
+                'cid': card_row[0],
+                'name': card_row[1],
+                'type': card_row[2],
+                'cost': card_row[3],
+                'power': card_row[4],
+                'ability': card_row[5],
+                'flavor': card_row[7], # Corrected index
+                'art': card_row[6],     # Corrected index
+                'alternate_art': card_row[8],
+                'url': card_row[9],
+                'status': card_row[10],
+                'carddefid': card_row[11]
+            }
+
+            # Fetch the associated variants
+            cursor.execute("""
+                SELECT
+                    variant_id, cid, vid, variant_url, variant_image,
+                    rarity, rarity_slug, variant_order, status,
+                    full_description, inker, sketcher, colorist,
+                    ReleaseDate
+                FROM variants
+                WHERE cid = ?
+            """, (cid,))
+            variant_rows = cursor.fetchall()
+            variants = []
+            for row in variant_rows:
+                variants.append({
+                    'variant_id': row[0],
+                    'cid': row[1],
+                    'vid': row[2],
+                    'variant_url': row[3],
+                    'variant_image': row[4],
+                    'rarity': row[5],
+                    'rarity_slug': row[6],
+                    'variant_order': row[7],
+                    'status': row[8],
+                    'full_description': row[9],
+                    'inker': row[10],
+                    'sketcher': row[11],
+                    'colorist': row[12],
+                    'ReleaseDate': row[13]
+                })
+            card['variants'] = variants
+            return card
+        else:
+            return None
+
+    except sqlite3.Error as e:
+        logging.error(f"Database error fetching card with variants: {e}")
+        return None
+    finally:
+        if conn:
+            conn.close()
+
+def get_variant_detail_from_db(variant_id):
+    """Retrieves detailed information for a specific variant from the database."""
+    conn = None
+    cursor = None
+    try:
+        conn = sqlite3.connect(DATABASE_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT
+                v.variant_id, v.cid, v.vid, v.variant_url, v.variant_image,
+                v.rarity, v.rarity_slug, v.variant_order, v.status,
+                v.full_description, v.inker, v.sketcher, v.colorist,
+                v.ReleaseDate,
+                c.name AS card_name
+            FROM variants v
+            JOIN cards c ON v.cid = c.cid
+            WHERE v.variant_id = ?
+        """, (variant_id,))
+        variant_row = cursor.fetchone()
+
+        if variant_row:
+            variant_data = {
+                'variant_id': variant_row[0],
+                'cid': variant_row[1],
+                'vid': variant_row[2],
+                'variant_url': variant_row[3],
+                'variant_image': variant_row[4],
+                'rarity': variant_row[5],
+                'rarity_slug': variant_row[6],
+                'variant_order': variant_row[7],
+                'status': variant_row[8],
+                'full_description': variant_row[9],
+                'inker': variant_row[10],
+                'sketcher': variant_row[11],
+                'colorist': variant_row[12],
+                'ReleaseDate': variant_row[13],
+                'card_name': variant_row[14]
+            }
+            return variant_data
+        else:
+            return None
+    except sqlite3.Error as e:
+        logging.error(f"Database error fetching variant detail: {e}")
+        return None
+    finally:
+        if conn:
+            conn.close()

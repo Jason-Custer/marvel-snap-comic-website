@@ -85,3 +85,38 @@
 .variant-comic-links {
     margin-top: 10px;
 }
+
+.back-link {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+.variant-section {
+    flex: 1;
+}
+
+.comic-section {
+    flex: 1;
+}
+
+.variant-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.comic-placeholder {
+    width: 200px; /* Adjust as needed */
+    height: 300px; /* Adjust as needed */
+    background-color: #ccc;
+    text-align: center;
+    line-height: 300px;
+}
+
+.info-below {
+    margin-top: 10px;
+}
