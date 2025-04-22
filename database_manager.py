@@ -48,7 +48,8 @@ def create_database():
             sketcher TEXT,
             colorist TEXT,
             ReleaseDate INTEGER,
-            FOREIGN KEY (cid) REFERENCES cards (cid)
+            FOREIGN KEY (cid) REFERENCES cards (cid),
+            UNIQUE (cid, vid, variant_url, variant_image)
         )
     """)
 
@@ -103,31 +104,39 @@ def insert_variants_into_db(cid, variants, conn=None): # Accept an optional conn
         if image_url and art_filename:
             png_filename = os.path.splitext(art_filename.rsplit('?', 1)[0])[0] + ".png"
             image_path = os.path.join("images", "variants", png_filename)
-            cursor.execute("""
-                INSERT OR REPLACE INTO variants (cid, vid, variant_url, variant_image, rarity, rarity_slug, variant_order, status, full_description, inker, sketcher, colorist, ReleaseDate)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                cid,
-                variant.get('vid'),
-                image_url,
-                image_path,
-                variant.get('rarity'),
-                variant.get('rarity_slug'),
-                variant.get('variant_order'),
-                variant.get('status'),
-                variant.get('full_description'),
-                variant.get('inker'),
-                variant.get('sketcher'),
-                variant.get('colorist'),
-                variant.get('ReleaseDate')
-            ))
-            variant_id = cursor.lastrowid # Get the ID of the last inserted variant
-            # Here you would call a function to insert comic data for this variant
-            # Example: if 'comic_links' in variant:
-            #     insert_comic_link_into_db(variant_id, variant['comic_links'], conn)
+            try:
+                cursor.execute("""
+                    INSERT OR REPLACE INTO variants (cid, vid, variant_url, variant_image, rarity, rarity_slug, variant_order, status, full_description, inker, sketcher, colorist, ReleaseDate)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    cid,
+                    variant.get('vid'),
+                    image_url,
+                    image_path,
+                    variant.get('rarity'),
+                    variant.get('rarity_slug'),
+                    variant.get('variant_order'),
+                    variant.get('status'),
+                    variant.get('full_description'),
+                    variant.get('inker'),
+                    variant.get('sketcher'),
+                    variant.get('colorist'),
+                    variant.get('ReleaseDate')
+                ))
+                if conn.total_changes > 0: # Check if a row was actually inserted or replaced
+                    variant_id = cursor.lastrowid # Get the ID of the last inserted variant
+                    # Here you would call a function to insert comic data for this variant
+                    # Example: if 'comic_links' in variant:
+                    #     insert_comic_link_into_db(variant_id, variant['comic_links'], conn)
+            except sqlite3.IntegrityError:
+                logging.warning(f"Skipping duplicate variant for CID: {cid}, VID: {variant.get('vid')}, URL: {image_url}, Image: {image_path}")
+            except sqlite3.Error as e:
+                logging.error(f"Database error during variant insertion for CID {cid}: {e}")
+                if close_conn and conn:
+                    conn.rollback() # Rollback only if this connection was created here
         else:
             print(f"Warning: Missing art or art_filename for variant of card CID: {cid}")
-    if close_conn:
+    if close_conn and conn:
         conn.commit()
         conn.close()
     print(f"Variants for {cid} inserted/updated in: {DATABASE_PATH}")

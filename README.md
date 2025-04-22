@@ -6,8 +6,8 @@ This project is a web application designed to highlight the connection between M
 
 marvel-snap-project/
 ├── app.py              # Flask application logic (routes, data retrieval)
-├── config.py           # Configuration settings (API URLs, database paths)
-├── database_manager.py # Database interaction (SQLite)
+├── config.py           # Configuration settings (API URLs, database path)
+├── database_manager.py # Database interaction (SQLite - single database file)
 ├── marvel_snap_zone_api.py # API interaction (card data and variant retrieval, image downloads)
 ├── static/
 │   ├── images/
@@ -17,17 +17,17 @@ marvel-snap-project/
 │   └── style.css         # CSS styles
 ├── templates/
 │   └── index.html      # HTML template for the main page
-├── cards.db            # SQLite database for card data
-└── variants.db         # SQLite database for variant data (to be implemented)
+├── snap_data.db        # SQLite database for cards, variants, and comics data
+└── README.md
 
 ## File Descriptions
 
 * **`app.py`:**
     * Main Flask application file; handles routes, data retrieval, and rendering.
 * **`config.py`:**
-    * Stores configuration settings like API URLs and database paths.
+    * Stores configuration settings like API URLs and the path to the single database file (`snap_data.db`).
 * **`database_manager.py`:**
-    * Manages database interactions (SQLite), including card data storage and retrieval.
+    * Manages database interactions (SQLite), including card, variant, and comic data storage and retrieval within the single database file.
 * **`marvel_snap_zone_api.py`:**
     * Interacts with the Marvel Snap Zone API to fetch card and variant data and download images.
 * **`static/images/cards/`:**
@@ -40,10 +40,10 @@ marvel-snap-project/
     * CSS stylesheets for website design.
 * **`templates/index.html`:**
     * HTML template for the main page, using Jinja2 for dynamic content.
-* **`cards.db`:**
-    * SQLite database for card data.
-* **`variants.db`:**
-    * SQLite database for variant data (to be implemented).
+* **`snap_data.db`:**
+    * SQLite database containing tables for card data, variant data, and comic link information.
+* **`README.md`:**
+    * Documentation for the project.
 
 ## Website Overview
 
@@ -53,6 +53,8 @@ The Marvel Snap Comic Cover Art Variants website aims to educate and entertain M
     * Displays Marvel Snap variants alongside their corresponding comic book cover art.
 * **Card and Variant Data:**
     * Fetches card and variant data from the Marvel Snap Zone API.
+* **Comic Book Origins:**
+    * Displays links and information related to the comic book origins of the variants.
 * **Search and Filtering:**
     * Allows users to search and filter cards and variants.
 * **Image Galleries:**
@@ -73,9 +75,8 @@ The Marvel Snap Comic Cover Art Variants website aims to educate and entertain M
 
 ## Future Improvements
 
-* Implement the variant database and retrieval.
-* Add detailed information about the comic book origins of each variant.
-* Enhance the image galleries and comparison features.
-* Improve the UI/UX for a more engaging experience.
+* Enhance the display of comic book origin information.
+* Improve the image galleries and comparison features.
+* Enhance the UI/UX for a more engaging experience.
 * Incorporate user feedback and suggestions.
 * Add ability to view individual card and variant details.

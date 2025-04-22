@@ -36,6 +36,12 @@ def index():
     page = int(request.args.get('page', 1))
     cards, total_pages = get_card_data_from_db(page)
 
+    print("Main page route accessed")
+    print(f"Type of cards: {type(cards)}")
+    print(f"Contents of cards (first 5): {cards[:5]}")
+    print(f"Total pages: {total_pages}")
+    print(f"Current page: {page}")
+
     return render_template("index.html", cards=cards, total_pages=total_pages, current_page=page)
 
 @app.route("/search_dynamic")
@@ -69,50 +75,49 @@ def card_detail(cid):
 
         card_dict = dict(card)
 
-        # Get variant data and associated comic links using a JOIN
+        # Get variant data (no JOIN yet)
         cursor.execute("""
-            SELECT v.*, c.marvel_link, c.marvel_unlimited_link, c.amazon_link, c.cover_image
-            FROM variants v
-            LEFT JOIN comics c ON v.variant_id = c.variant_id
-            WHERE v.cid = ?
+            SELECT
+                variant_id, cid, vid, variant_url, variant_image,
+                rarity, rarity_slug, variant_order, status,
+                full_description, inker, sketcher, colorist,
+                ReleaseDate
+            FROM variants
+            WHERE cid = ?
+            ORDER BY variant_order
         """, (cid,))
-        variants_with_comics = cursor.fetchall()
+        variants_data = cursor.fetchall()
 
-        variants_list = []
+        variants_list = [dict(row) for row in variants_data]
+        for variant in variants_list:
+            print(f"Variant data: {variant}") # Keep this for now
+
+        # Get comic link data for all variants of this card
+        cursor.execute("""
+            SELECT variant_id, marvel_link, marvel_unlimited_link, amazon_link, cover_image
+            FROM comics
+            WHERE variant_id IN (SELECT variant_id FROM variants WHERE cid = ?)
+        """, (cid,))
+        comics_data = cursor.fetchall()
+
         comic_links = {}
-        for row in variants_with_comics:
-            variant = {
-                'variant_id': row['variant_id'],
-                'cid': row['cid'],
-                'vid': row['vid'],
-                'variant_url': row['variant_url'],
-                'variant_image': row['variant_image'],
-                'rarity': row['rarity'],
-                'rarity_slug': row['rarity_slug'],
-                'variant_order': row['variant_order'],
-                'status': row['status'],
-                'full_description': row['full_description'],
-                'inker': row['inker'],
-                'sketcher': row['sketcher'],
-                'colorist': row['colorist'],
-                'ReleaseDate': row['ReleaseDate']
-            }
-            variants_list.append(variant)
-            comic_links[variant['variant_id']] = {
+        for row in comics_data:
+            comic_links[row['variant_id']] = {
                 'marvel_link': row['marvel_link'],
                 'marvel_unlimited_link': row['marvel_unlimited_link'],
                 'amazon_link': row['amazon_link'],
                 'cover_image': row['cover_image']
             }
 
+        # Optionally, combine comic links into the variants_list if needed
+        for variant in variants_list:
+            variant['comic_links'] = comic_links.get(variant['variant_id'], {})
+
         return render_template('card_detail.html', card=card_dict, variants=variants_list, comic_links=comic_links)
 
     except sqlite3.Error as e:
         logging.error(f"Database error: {e}")
         return "Database error", 500
-    except Exception as e:
-        logging.error(f"An unexpected error occurred: {e}")
-        return "Internal server error", 500
     finally:
         if conn:
             conn.close()

@@ -63,14 +63,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Loop through the card data and generate HTML for each card
                 data.cards.forEach(card => {
                     resultsHtml += `
-                        <div class="card">
-                            <h2>${card.name}</h2>
-                            <img src="${card.art}" alt="${card.name}">
-                            <p>Cost: ${card.cost}</p>
-                            <p>Power: ${card.power}</p>
-                        </div>
+                        <a href="/card/${card.cid}">
+                            <div class="card">
+                                <h2>${card.name}</h2>
+                                <img src="/static/${card.art}" alt="${card.name}">
+                                <p>Cost: ${card.cost}</p>
+                                <p>Power: ${card.power}</p>
+                            </div>
+                        </a>
                     `;
-                });
+                });                
 
                 // Update the search results container with the generated HTML
                 searchResults.innerHTML = resultsHtml;
