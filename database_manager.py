@@ -13,7 +13,7 @@ def create_database():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
 
-    # Create cards table
+    # Create cards table (NO CHANGES NEEDED HERE)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS cards (
             cid TEXT PRIMARY KEY,
@@ -31,7 +31,7 @@ def create_database():
         )
     """)
 
-    # Create variants table
+    # Create variants table (NO CHANGES NEEDED HERE, as its schema was not altered)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS variants (
             variant_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,7 +53,7 @@ def create_database():
         )
     """)
 
-    # Create comics table
+    # Create comics table (UPDATED SCHEMA HERE)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS comics (
             comic_link_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -61,7 +61,14 @@ def create_database():
             marvel_link TEXT,
             marvel_unlimited_link TEXT,
             amazon_link TEXT,
-            cover_image TEXT,
+            comic_cover_link TEXT,      
+            comic_cover_path TEXT,       
+            is_original_commission TEXT,
+            commission_image_url TEXT,
+            commission_image_path TEXT,
+            comic_title TEXT,            
+            comic_year INTEGER,          
+            issue_number TEXT,          
             FOREIGN KEY (variant_id) REFERENCES variants (variant_id)
         )
     """)
@@ -90,6 +97,44 @@ def insert_cards_into_db(cards):
     conn.close()
     print(f"{len(cards)} cards inserted/updated in: {DATABASE_PATH}")
 
+def insert_comics_into_db(variant_id, comic_links_data, conn):
+    """Inserts comic link data into the comics table for a given variant_id.
+       UPDATED to match new 'comics' table schema.
+    """
+    cursor = conn.cursor()
+    for comic_link in comic_links_data:
+        try:
+            cursor.execute("""
+                INSERT OR REPLACE INTO comics (
+                    variant_id, marvel_link, marvel_unlimited_link, amazon_link,
+                    comic_cover_link,       
+                    comic_cover_path,       
+                    is_original_commission, commission_image_url, commission_image_path,
+                    comic_title,            
+                    comic_year,             
+                    issue_number            
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                variant_id,
+                comic_link.get('marvel_link'),
+                comic_link.get('marvel_unlimited_link'),
+                comic_link.get('amazon_link'),
+                comic_link.get('comic_cover_link'),  
+                comic_link.get('comic_cover_path'),  
+                comic_link.get('is_original_commission'),
+                comic_link.get('commission_image_url'),
+                comic_link.get('commission_image_path'),
+                comic_link.get('comic_title'),       
+                comic_link.get('comic_year'),        
+                comic_link.get('issue_number')       
+            ))
+        except sqlite3.IntegrityError:
+            logging.warning(f"Skipping duplicate comic link for variant_id: {variant_id}, Marvel link: {comic_link.get('marvel_link')}")
+        except sqlite3.Error as e:
+            logging.error(f"Database error during comic link insertion for variant_id {variant_id}: {e}")
+            # Do not rollback here, let the calling function handle it.
+
 def insert_variants_into_db(cid, variants, conn=None): # Accept an optional connection
     """Inserts variant data into the variants table of the single database."""
     if conn is None:
@@ -105,6 +150,7 @@ def insert_variants_into_db(cid, variants, conn=None): # Accept an optional conn
             png_filename = os.path.splitext(art_filename.rsplit('?', 1)[0])[0] + ".png"
             image_path = os.path.join("images", "variants", png_filename)
             try:
+                # 'variants' insertion is unchanged
                 cursor.execute("""
                     INSERT OR REPLACE INTO variants (cid, vid, variant_url, variant_image, rarity, rarity_slug, variant_order, status, full_description, inker, sketcher, colorist, ReleaseDate)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -125,9 +171,11 @@ def insert_variants_into_db(cid, variants, conn=None): # Accept an optional conn
                 ))
                 if conn.total_changes > 0: # Check if a row was actually inserted or replaced
                     variant_id = cursor.lastrowid # Get the ID of the last inserted variant
-                    # Here you would call a function to insert comic data for this variant
-                    # Example: if 'comic_links' in variant:
-                    #     insert_comic_link_into_db(variant_id, variant['comic_links'], conn)
+                    if variant.get('comic_links'):
+                        # Ensure the comic_links data passed to insert_comics_into_db
+                        # includes the new fields (comic_title, comic_year, issue_number, comic_cover_path)
+                        # and EXCLUDES the removed fields. This depends on how your data source generates comic_links.
+                        insert_comics_into_db(variant_id, variant['comic_links'], conn)
             except sqlite3.IntegrityError:
                 logging.warning(f"Skipping duplicate variant for CID: {cid}, VID: {variant.get('vid')}, URL: {image_url}, Image: {image_path}")
             except sqlite3.Error as e:
@@ -250,15 +298,15 @@ def get_card_with_variants_from_db(cid):
                 'cost': card_row[3],
                 'power': card_row[4],
                 'ability': card_row[5],
-                'flavor': card_row[7], # Corrected index
-                'art': card_row[6],     # Corrected index
+                'flavor': card_row[6],
+                'art': card_row[7],
                 'alternate_art': card_row[8],
                 'url': card_row[9],
                 'status': card_row[10],
                 'carddefid': card_row[11]
             }
 
-            # Fetch the associated variants
+            # Fetch the associated variants (unchanged)
             cursor.execute("""
                 SELECT
                     variant_id, cid, vid, variant_url, variant_image,
@@ -271,7 +319,7 @@ def get_card_with_variants_from_db(cid):
             variant_rows = cursor.fetchall()
             variants = []
             for row in variant_rows:
-                variants.append({
+                variant_data = {
                     'variant_id': row[0],
                     'cid': row[1],
                     'vid': row[2],
@@ -286,7 +334,41 @@ def get_card_with_variants_from_db(cid):
                     'sketcher': row[11],
                     'colorist': row[12],
                     'ReleaseDate': row[13]
-                })
+                }
+                
+                # Fetch associated comic links for this variant, including new columns and excluding removed ones
+                cursor.execute("""
+                    SELECT
+                        comic_link_id, marvel_link, marvel_unlimited_link, amazon_link,
+                        comic_cover_link,       
+                        comic_cover_path,       
+                        is_original_commission, commission_image_url, commission_image_path,
+                        comic_title,            
+                        comic_year,             
+                        issue_number            
+                    FROM comics
+                    WHERE variant_id = ?
+                """, (variant_data['variant_id'],))
+                comic_link_rows = cursor.fetchall()
+                
+                comic_links = []
+                for comic_row in comic_link_rows:
+                    comic_links.append({
+                        'comic_link_id': comic_row[0],
+                        'marvel_link': comic_row[1],
+                        'marvel_unlimited_link': comic_row[2],
+                        'amazon_link': comic_row[3],
+                        'comic_cover_link': comic_row[4],        
+                        'comic_cover_path': comic_row[5],        
+                        'is_original_commission': comic_row[6],
+                        'commission_image_url': comic_row[7],
+                        'commission_image_path': comic_row[8],
+                        'comic_title': comic_row[9],             
+                        'comic_year': comic_row[10],             
+                        'issue_number': comic_row[11]            
+                    })
+                variant_data['comic_links'] = comic_links
+                variants.append(variant_data)
             card['variants'] = variants
             return card
         else:
@@ -295,12 +377,17 @@ def get_card_with_variants_from_db(cid):
     except sqlite3.Error as e:
         logging.error(f"Database error fetching card with variants: {e}")
         return None
+    except Exception as e:
+        logging.error(f"An unexpected error occurred: {e}")
+        return None 
     finally:
         if conn:
             conn.close()
 
 def get_variant_detail_from_db(variant_id):
-    """Retrieves detailed information for a specific variant from the database."""
+    """Retrieves detailed information for a specific variant from the database.
+       UPDATED to match new 'comics' table schema when fetching comic links.
+    """
     conn = None
     cursor = None
     try:
@@ -337,6 +424,39 @@ def get_variant_detail_from_db(variant_id):
                 'ReleaseDate': variant_row[13],
                 'card_name': variant_row[14]
             }
+            
+            # Fetch associated comic links for this specific variant, including new columns and excluding removed ones
+            cursor.execute("""
+                SELECT
+                    comic_link_id, marvel_link, marvel_unlimited_link, amazon_link,
+                    comic_cover_link,       
+                    comic_cover_path,       
+                    is_original_commission, commission_image_url, commission_image_path,
+                    comic_title,            
+                    comic_year,             
+                    issue_number            
+                FROM comics
+                WHERE variant_id = ?
+            """, (variant_data['variant_id'],))
+            comic_link_rows = cursor.fetchall()
+            
+            comic_links = []
+            for comic_row in comic_link_rows:
+                comic_links.append({
+                    'comic_link_id': comic_row[0],
+                    'marvel_link': comic_row[1],
+                    'marvel_unlimited_link': comic_row[2],
+                    'amazon_link': comic_row[3],
+                    'comic_cover_link': comic_row[4],        
+                    'comic_cover_path': comic_row[5],        
+                    'is_original_commission': comic_row[6],
+                    'commission_image_url': comic_row[7],
+                    'commission_image_path': comic_row[8],
+                    'comic_title': comic_row[9],             
+                    'comic_year': comic_row[10],             
+                    'issue_number': comic_row[11]            
+                })
+            variant_data['comic_links'] = comic_links
             return variant_data
         else:
             return None

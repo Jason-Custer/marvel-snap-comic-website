@@ -5,45 +5,78 @@ This project is a web application designed to highlight the connection between M
 ## File Structure
 
 marvel-snap-project/
-├── app.py              # Flask application logic (routes, data retrieval)
-├── config.py           # Configuration settings (API URLs, database path)
-├── database_manager.py # Database interaction (SQLite - single database file)
-├── marvel_snap_zone_api.py # API interaction (card data and variant retrieval, image downloads)
+├── app.py                      # Flask application for web interface to view cards and variants
+├── config.py                   # Configuration settings: database path, Google Sheets ID, API keys
+├── database_manager.py         # Handles all SQLite database interactions
+├── marvel_snap_zone_api.py     # Manages fetching card data and variant images from Snap.fan (or similar source)
+├── initial_export.py           # Script to perform the initial export of variant data to a new Google Sheet
+├── sheets_sync.py              # Script to synchronize data between the SQLite DB and Google Sheet, including Marvel API lookup
+├── comic_integration.py        # Contains logic for Marvel API interaction and data processing for comic metadata
+├── service_account_key.json    # Google Service Account Key for Sheets API access
+├── data/
+│   └── snap_data.db            # SQLite database file for cards, variants, and comic metadata
 ├── static/
 │   ├── images/
-│   │   ├── cards/       # Card images
-│   │   └── variants/    # Variant images (comic cover art)
-│   ├── script.js        # Client-side JavaScript logic
-│   └── style.css         # CSS styles
-├── templates/
-│   └── index.html      # HTML template for the main page
-├── snap_data.db        # SQLite database for cards, variants, and comics data
-└── README.md
+│   │   ├── cards/              # Stored images for base cards
+│   │   ├── comics/             # Stored images for comic covers (if downloaded)
+│   │   └── variants/           # Stored images for variant cards
+│   ├── script.js               # Client-side JavaScript logic
+│   └── style.css               # CSS styles for the web interface
+└── templates/
+├── index.html              # HTML template for the main card list page
+├── card_detail.html        # HTML template for individual card details and their variants
+└── variant_detail.html     # HTML template for individual variant details, including comic info
+└── README.md                   # This readme file
 
-## File Descriptions
+## Database Schema (`snap_data.db`)
 
-* **`app.py`:**
-    * Main Flask application file; handles routes, data retrieval, and rendering.
-* **`config.py`:**
-    * Stores configuration settings like API URLs and the path to the single database file (`snap_data.db`).
-* **`database_manager.py`:**
-    * Manages database interactions (SQLite), including card, variant, and comic data storage and retrieval within the single database file.
-* **`marvel_snap_zone_api.py`:**
-    * Interacts with the Marvel Snap Zone API to fetch card and variant data and download images.
-* **`static/images/cards/`:**
-    * Stores standard card images.
-* **`static/images/variants/`:**
-    * Stores variant images, focusing on comic cover art.
-* **`static/script.js`:**
-    * Client-side JavaScript for search, filtering, and dynamic content updates.
-* **`static/style.css`:**
-    * CSS stylesheets for website design.
-* **`templates/index.html`:**
-    * HTML template for the main page, using Jinja2 for dynamic content.
-* **`snap_data.db`:**
-    * SQLite database containing tables for card data, variant data, and comic link information.
-* **`README.md`:**
-    * Documentation for the project.
+cards
+    cid TEXT PRIMARY KEY,
+    name TEXT,
+    type TEXT,
+    cost INTEGER,
+    power INTEGER,
+    ability TEXT,
+    flavor TEXT,
+    art TEXT,
+    alternate_art TEXT,
+    url TEXT,
+    status TEXT,
+    carddefid TEXT
+
+variants 
+    variant_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cid TEXT,
+    vid INTEGER,
+    variant_url TEXT,
+    variant_image TEXT,
+    rarity TEXT,
+    rarity_slug TEXT,
+    variant_order TEXT,
+    status TEXT,
+    full_description TEXT,
+    inker TEXT,
+    sketcher TEXT,
+    colorist TEXT,
+    ReleaseDate INTEGER,
+    FOREIGN KEY (cid) REFERENCES cards (cid),
+    UNIQUE (cid, vid, variant_url, variant_image)
+
+comics
+    comic_link_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    variant_id INTEGER,
+    marvel_link TEXT,
+    marvel_unlimited_link TEXT,
+    amazon_link TEXT,
+    comic_cover_link TEXT,
+    comic_cover_path TEXT DEFAULT '',
+    is_original_commission TEXT,
+    commission_image_url TEXT,
+    commission_image_path TEXT,
+    comic_title TEXT,
+    comic_year INTEGER,
+    issue_number TEXT,
+    FOREIGN KEY (variant_id) REFERENCES variants (variant_id)                      |
 
 ## Website Overview
 

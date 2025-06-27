@@ -3,3 +3,4 @@ __pycache__/
 *.db
 static/images/
 .DS_Store
+service_account_key.json

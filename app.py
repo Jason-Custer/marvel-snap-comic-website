@@ -6,14 +6,18 @@ It handles routing, data retrieval, and rendering of templates.
 from flask import Flask, render_template, request, jsonify, url_for
 import logging
 from marvel_snap_zone_api import get_cards, download_images, download_variants
+# Ensure these imports are correct and available
 from database_manager import create_database, get_card_data_from_db, insert_cards_into_db, get_variant_detail_from_db, get_card_with_variants_from_db
-import sqlite3
-from config import DATABASE_PATH
+# You no longer need to import sqlite3 directly here for this route,
+# as database_manager.py handles it.
+# from config import DATABASE_PATH 
 
 logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__, static_folder='static')
 
+# It's good to have both. The basicConfig above sets up the root logger for console output.
+# This specific config for a file is also good.
 logging.basicConfig(filename='app.log', level=logging.ERROR)
 
 create_database()
@@ -23,7 +27,7 @@ def update_cards_data():
     cards = get_cards()
     if cards:
         insert_cards_into_db(cards)
-        download_images(cards)  # Remove the "cards" subdir argument
+        download_images(cards)  # This function should handle subdir internally
         download_variants(cards)
     else:
         print("Error: Could not retrieve cards from API. Database not updated.")
@@ -69,66 +73,18 @@ def variant_detail(variant_id):
 @app.route('/card/<cid>')
 def card_detail(cid):
     """Displays detailed information for a specific card and its variants with comic links."""
-    conn = None
-    try:
-        conn = sqlite3.connect(DATABASE_PATH)
-        cursor = conn.cursor()
-        cursor.row_factory = sqlite3.Row  # Allows accessing columns by name
-
-        # Get base card data
-        cursor.execute("SELECT * FROM cards WHERE cid = ?", (cid,))
-        card = cursor.fetchone()
-
-        if not card:
-            return "Card not found", 404
-
-        card_dict = dict(card)
-
-        # Get variant data
-        cursor.execute("""
-            SELECT
-                variant_id, cid, vid, variant_url, variant_image,
-                rarity, rarity_slug, variant_order, status,
-                full_description, inker, sketcher, colorist,
-                ReleaseDate
-            FROM variants
-            WHERE cid = ?
-            ORDER BY variant_order
-        """, (cid,))
-        variants_data = cursor.fetchall()
-
-        variants_list = [dict(row) for row in variants_data]
-        for variant in variants_list:
-            print(f"Variant data: {variant}")
-
-        # Attach variants to the card_dict
-        card_dict['variants'] = variants_list
-
-        # Get comic link data
-        cursor.execute("""
-            SELECT variant_id, marvel_link, marvel_unlimited_link, amazon_link, cover_image
-            FROM comics
-            WHERE variant_id IN (SELECT variant_id FROM variants WHERE cid = ?)
-        """, (cid,))
-        comics_data = cursor.fetchall()
-
-        comic_links = {}
-        for row in comics_data:
-            comic_links[row['variant_id']] = {
-                'marvel_link': row['marvel_link'],
-                'marvel_unlimited_link': row['marvel_unlimited_link'],
-                'amazon_link': row['amazon_link'],
-                'cover_image': row['cover_image']
-            }
-
-        return render_template('card_detail.html', card=card_dict, variants=variants_list, comic_links=comic_links)
-
-    except sqlite3.Error as e:
-        logging.error(f"Database error: {e}")
-        return "Database error", 500
-    finally:
-        if conn:
-            conn.close()
+    # This entire block of manual SQLite connection and queries is no longer needed
+    # because database_manager.get_card_with_variants_from_db does this for you.
+    
+    card_data = get_card_with_variants_from_db(cid)
+    
+    if card_data:
+        # The `card_data` dictionary already contains 'variants' key,
+        # and each variant within 'variants' has a 'comic_links' key.
+        # So you just pass the entire `card_data` to the template.
+        return render_template('card_detail.html', card=card_data)
+    else:
+        return "Card not found", 404
 
 if __name__ == "__main__":
     app.run(debug=True)
